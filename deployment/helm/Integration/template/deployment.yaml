@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      serviceAccountName: my-service-account
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.registry}}/{{ .Values.image.name}}:{{ .Values.image.tag}}
+          imagePullPolicy: Never
+          env:
+            - name: "NAMESPACE"
+              value: {{ .Values.config.namespace }}
+            - name: "KONG_PATH"
+              value: {{ .Values.config.kongPath }}
+            - name: "KONG_API_PORT"
+              value: {{ .Values.config.kongPort }}
+            - name: "TEMPLATES_PATH"
+              value: {{ .Values.config.templatePath }}
+            - name: "TEMPLATE_REPO"
+              value: {{ .Values.config.templateRepo }}
+            - name: "TEMPLATE_REPO_PATH"
+              value: {{ .Values.config.templateRepoPath }}
+            - name: "CLAIM_SERVICE"
+              value: {{ .Values.config.claimService }}
+            - name: "REQUIRED_CLAIMS"
+              value: {{ .Values.config.requiredClaims }}
+            - name: "AUDIENCE"
+              value: {{ .Values.config.audience }}
+            - name: "ALGORITHMS"
+              value: {{ .Values.config.algorithms }}  
+            - name: "JWKS_URL"
+              value: {{ .Values.config.jwksUrl }} 
+            - name: "ISSUER"
+              value: {{ .Values.config.issuer }}              
+          ports:
+            - containerPort: {{ .Values.server.port }}
+          resources:
+            limits:
+              memory: 128Mi
+              cpu: "1"
+            requests:
+              memory: 128i
+              cpu: "0.2"

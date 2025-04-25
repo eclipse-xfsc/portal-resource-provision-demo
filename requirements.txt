@@ -1,0 +1,5 @@
+kubernetes
+fastapi
+uvicorn[standard]
+pyjwt[crypto]
+gitpython

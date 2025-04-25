@@ -1,0 +1,21 @@
+image:
+  tag: "latest"
+  registry: "registry.gitlab.com/gaia-x/data-infrastructure-federation-services/por/resource-provision-demo"
+  name: "resource-provision-demo"
+
+server:
+  port: 80
+
+config:
+  namespace: test
+  kongPath: "Kong Admin Path"
+  kongPort: "Kong Admin Port"
+  templatePath: "Path to templates in the Repo"
+  templateRepo: "Repo Git Link"
+  templateRepoPath: "Folder for Repo Clone"
+  claimService: "Claim Mapping Service URL"
+  requiredClaims: "Claims which are mandatory"
+  audience: "Audience Claim"
+  algorithms: "RS256"
+  jwksUrl: "JWKS URL from OIDC Provider"
+  issuer: "Token Issuer"
